@@ -1,0 +1,158 @@
+---
+title: "Included fonts"
+output: rmarkdown::html_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gfonts)
+```
+
+9 fonts are included in {gfonts} and ready to use! Here's a comparison, more examples below.
+
+```{r, echo=FALSE}
+library(htmltools)
+style <- "border: 1px dashed #112446; padding: 10px;"
+citation <- "Faites des b\u00eatises, mais faites-les avec enthousiasme."
+tags$div(
+  style = paste0(
+    "display: grid;",
+    "grid-template-columns: repeat(3, 1fr);",
+    "grid-template-rows: repeat(3, 1fr);",
+    "grid-column-gap: 10px;","grid-row-gap: 10px;"
+  ),
+  lapply(
+    X = c("roboto", "open-sans", "lato", "montserrat",
+          "alegreya", "nunito-sans", "baloo", "happy-monkey",
+          "henny-penny"),
+    FUN = function(x) {
+      tags$div(
+        class = paste0("example-", x),
+        style = style,
+        title = x,
+        citation
+      )
+    }
+  )
+)
+```
+
+
+
+## Roboto {.example-roboto}
+
+```{r}
+use_pkg_gfont("roboto", selector = ".example-roboto")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-roboto")
+```
+
+
+
+## Open sans {.example-open-sans}
+
+```{r}
+use_pkg_gfont("open-sans", selector = ".example-open-sans")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-open-sans")
+```
+
+
+## Lato {.example-lato}
+
+```{r}
+use_pkg_gfont("lato", selector = ".example-lato")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-lato")
+```
+
+
+
+## Montserrat {.example-montserrat}
+
+```{r}
+use_pkg_gfont("montserrat", selector = ".example-montserrat")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-montserrat")
+```
+
+
+
+## Alegreya {.example-alegreya}
+
+```{r}
+use_pkg_gfont("alegreya", selector = ".example-alegreya")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-alegreya")
+```
+
+
+
+## Nunito sans {.example-nunito-sans}
+
+```{r}
+use_pkg_gfont("nunito-sans", selector = ".example-nunito-sans")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-nunito-sans")
+```
+
+
+
+## Baloo {.example-baloo}
+
+```{r}
+use_pkg_gfont("baloo", selector = ".example-baloo")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-baloo")
+```
+
+
+
+## Happy monkey {.example-happy-monkey}
+
+```{r}
+use_pkg_gfont("happy-monkey", selector = ".example-happy-monkey")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-happy-monkey")
+```
+
+
+
+## Henny Penny {.example-henny-penny}
+
+```{r}
+use_pkg_gfont("henny-penny", selector = ".example-henny-penny")
+```
+
+```{r, echo=FALSE, results='asis'}
+tag_example("example-henny-penny")
+```
+
+
+
+
+
+
+
