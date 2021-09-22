@@ -10,6 +10,8 @@
 #' @param subsets Subsets to download.
 #' @param prefer_local_source Generate CSS font-face rules in which user installed fonts are
 #'     preferred. Use \code{FALSE} if you want to force the use of the downloaded font.
+#' @param browser_support Browser to support, choose \code{"best"} to support
+#'     old browser or \code{"modern"} for only recent ones.
 #' @param ... Arguments passed to \code{crul::HttpClient$new}.
 #'
 #' @note Two directories will be created (if they do not exist)
@@ -18,7 +20,8 @@
 #' @return None.
 #' @export
 #'
-#' @importFrom usethis ui_done ui_todo
+#' @importFrom crayon bold green red
+#' @importFrom glue glue
 #'
 #' @examples
 #' if (interactive()) {
@@ -43,8 +46,9 @@ setup_font <- function(id,
                        variants = NULL,
                        subsets = NULL,
                        prefer_local_source = TRUE,
+                       browser_support = c("best", "modern"),
                        ...) {
-
+  browser_support <- match.arg(browser_support)
   output_dir <- normalizePath(path = output_dir, mustWork = TRUE)
   dir_info <- file.info(output_dir)
   if (isFALSE(dir_info$isdir))
@@ -57,14 +61,18 @@ setup_font <- function(id,
   if (!dir.exists(paths = css_dir))
     dir.create(path = css_dir)
 
+  formats <- if (identical(browser_support, "modern")) {
+    "woff,woff2"
+  }
   download_font(
     id = id,
     output_dir = font_dir,
     variants = variants,
     subsets = subsets,
+    formats = formats,
     http_options = list(...)
   )
-  usethis::ui_done("Font downloaded")
+  cat(crayon::bold(crayon::green("\u2713")), "Font files downloaded!\n")
 
   generate_css(
     id = id,
@@ -73,14 +81,17 @@ setup_font <- function(id,
     output = file.path(css_dir, paste0(id, ".css")),
     font_dir = "../fonts/",
     prefer_local_source = prefer_local_source,
+    browser_support = browser_support,
     ...
   )
-  usethis::ui_done("CSS generated")
+  cat(crayon::bold(crayon::green("\u2713")), "CSS file generated!\n")
 
   path_to_css <- file.path(basename(output_dir), "css", paste0(id, ".css"))
-  usethis::ui_todo(
-    "Please use `use_font(\"{id}\", \"{path_to_css}\")` to import the font in Shiny or Markdown."
+  cat(
+    crayon::red("\u2732"),
+    glue::glue("Please use `use_font(\"{id}\", \"{path_to_css}\")` to import the font in Shiny or Markdown.")
   )
+  invisible(path_to_css)
 }
 
 

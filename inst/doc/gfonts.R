@@ -15,7 +15,7 @@ library(gfonts)
 #    variants = "regular"
 #  )
 
-## ---- eval=TRUE---------------------------------------------------------------
+## ---- eval=gfonts:::is_service_ok()-------------------------------------------
 head(get_all_fonts())
 
 ## -----------------------------------------------------------------------------
@@ -39,6 +39,6 @@ head(get_all_fonts())
 ## -----------------------------------------------------------------------------
 #  generate_css("roboto", "regular", font_dir = "path/to/font")
 
-## ---- eval=TRUE, echo=FALSE---------------------------------------------------
+## ---- eval=gfonts:::is_service_ok(), echo=FALSE-------------------------------
 cat(generate_css("roboto", "regular", font_dir = "path/to/"))
 
